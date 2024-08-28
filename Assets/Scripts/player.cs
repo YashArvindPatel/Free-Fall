@@ -70,26 +70,26 @@ public class player : MonoBehaviour {
         {
             if (perpendicular)
             {
-                rigid.velocity += transform.rotation * (Vector3.right * Input.acceleration.x * speed * Time.deltaTime);
-                rigid.velocity += transform.rotation * (Vector3.up * -Input.acceleration.z * speed * Time.deltaTime);
+                rigid.velocity += transform.rotation * (Input.acceleration.x * speed * Time.deltaTime * Vector3.right);
+                rigid.velocity += transform.rotation * (-Input.acceleration.z * speed * Time.deltaTime * Vector3.up);
             }
             else
             {
-                rigid.velocity += transform.rotation * (Vector3.right * Input.acceleration.x * speed * Time.deltaTime);
-                rigid.velocity += transform.rotation * (Vector3.up * Input.acceleration.y * speed * Time.deltaTime);
+                rigid.velocity += transform.rotation * (Input.acceleration.x * speed * Time.deltaTime * Vector3.right);
+                rigid.velocity += transform.rotation * (Input.acceleration.y * speed * Time.deltaTime * Vector3.up);
             }
         }
         else
         {
             if (back1.activeSelf)
             {
-                rigid.velocity += transform.rotation * (Vector3.right * floatingJoystickL.Horizontal * speed * Time.deltaTime);
-                rigid.velocity += transform.rotation * (Vector3.up * floatingJoystickL.Vertical * speed * Time.deltaTime);
+                rigid.velocity += transform.rotation * (floatingJoystickL.Horizontal * speed * Time.deltaTime * Vector3.right);
+                rigid.velocity += transform.rotation * (floatingJoystickL.Vertical * speed * Time.deltaTime * Vector3.up);
             }
             else if (back2.activeSelf)
             {
-                rigid.velocity += transform.rotation * (Vector3.right * floatingJoystickR.Horizontal * speed * Time.deltaTime);
-                rigid.velocity += transform.rotation * (Vector3.up * floatingJoystickR.Vertical * speed * Time.deltaTime);
+                rigid.velocity += transform.rotation * (floatingJoystickR.Horizontal * speed * Time.deltaTime * Vector3.right);
+                rigid.velocity += transform.rotation * (floatingJoystickR.Vertical * speed * Time.deltaTime * Vector3.up);
             }
         }
 
@@ -100,6 +100,7 @@ public class player : MonoBehaviour {
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        PlayerPrefs.SetInt("highscore", (int)score);
+        if (score > PlayerPrefs.GetInt("highscore"))
+            PlayerPrefs.SetInt("highscore", (int)score);
     }
 }
